@@ -1,0 +1,25 @@
+{
+  "name": "cliuno-laravel-template",
+  "version": "2.0.1",
+  "author": "ru44",
+  "license": "AGPL-3.0-only",
+  "keywords": [
+    "cliuno",
+    "laravel",
+    "typescript",
+    "javascript"
+  ],
+  "main": "postcss.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "prepare": "husky"
+  },
+"devDependencies": {
+    "@changesets/cli": "^2.27.11",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "husky": "^9.1.7"
+  }
+}
