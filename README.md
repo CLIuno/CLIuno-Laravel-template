@@ -1,16 +1,14 @@
 # Under All in One Project
 
-# Please Dont Open This Project
+## Please Don't Open This Project
 
-## Okey its not ready yet
+it's not ready yet and it contains a lot of bugs
 
-### its contain a lot of frameworks with diff lang
+## JS - JAVA - Python - PHP - ASP.NET
 
-## JS - JAVA - Python - PHP (until now)
+and here is the deal All Backend Frameworks work on PORT = 3000
 
-# Okey here is the deal All Backend Frameworks works on PORT = 3000
-
-# and the Frontend Frameworks works on PORT = 8000
+and the Frontend Frameworks work on PORT = 8000
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
