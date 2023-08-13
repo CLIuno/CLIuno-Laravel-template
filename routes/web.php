@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return \App\Models\User::first()->name;
+    return ['CLIuno' => 'you are not allowed to be here'];
 });
 
-require __DIR__.'/auth.php';
+
