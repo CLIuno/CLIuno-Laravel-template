@@ -1,0 +1,33 @@
+# Ignore the vendor directory
+/vendor
+
+# Ignore the node_modules directory
+/node_modules
+
+# Ignore compiled files
+/public/storage
+/storage/*.key
+/storage/*.log
+/storage/*.cache
+/storage/*.session
+/storage/*.views
+
+# Ignore IDE and editor files
+/.idea
+/.vscode
+*.sublime-project
+*.sublime-workspace
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore other files
+/public/hot
+/public/storage
+/storage/debugbar
+/storage/framework/cache/data
+/storage/framework/sessions
+/storage/framework/testing
+/storage/framework/views
+/storage/logs
