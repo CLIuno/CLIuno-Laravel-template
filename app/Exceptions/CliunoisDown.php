@@ -4,6 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 
-class SSEZisDown extends HandledException
+class CLIUNOisDown extends HandledException
 {
 }

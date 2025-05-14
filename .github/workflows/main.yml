@@ -1,0 +1,41 @@
+name: main-ci
+
+on:
+    push:
+        branches: ['**']
+    pull_request:
+        branches: ['**']
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        services:
+            postgres:
+                image: postgres:17.5
+                env:
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                    POSTGRES_DB: cliunophpunit
+                ports:
+                    - 5432:5432
+                options: >-
+                    --health-cmd="pg_isready"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=5
+
+        container:
+            image: cimg/php:8.4
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Copy .env file
+              run: cp .env.example .env
+
+            - name: Install dependencies
+              run: composer install
+
+            - name: Run tests
+              run: vendor/bin/pest
