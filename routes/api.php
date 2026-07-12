@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PostController;
@@ -8,20 +9,41 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+// Token-based auth (the shared frontend contract)
+Route::prefix('auth')->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/refresh-token', [AuthController::class, 'refreshToken']);
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+    Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/check-token', [AuthController::class, 'checkToken']);
+        Route::post('/change-password', [AuthController::class, 'changePassword']);
+        Route::post('/send-verify-email', [AuthController::class, 'sendVerifyEmail']);
+        Route::post('/otp/generate', [AuthController::class, 'otpGenerate']);
+        Route::post('/otp/verify', [AuthController::class, 'otpVerify']);
+        Route::post('/otp/validate', [AuthController::class, 'otpValidate']);
+        Route::post('/otp/disable', [AuthController::class, 'otpDisable']);
+    });
+});
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     // Users
+    Route::get('/users', [UserController::class, 'getAll']);
     Route::get('/users/current', [UserController::class, 'getCurrent']);
     Route::patch('/users/current', [UserController::class, 'updateCurrent']);
     Route::delete('/users/current', [UserController::class, 'deleteCurrent']);
     Route::get('/users/username/{username}', [UserController::class, 'getByUsername']);
-    Route::get('/users/posts', [UserController::class, 'getPostsByUserId']);
-    Route::get('/users/role', [UserController::class, 'getRolesByUserId']);
+    Route::get('/users/{id}/posts', [UserController::class, 'getPostsByUserId']);
+    Route::get('/users/{id}/roles', [UserController::class, 'getRolesByUserId']);
     Route::get('/users/{id}', [UserController::class, 'getById']);
 
     // Admin-only user routes
     Route::middleware('admin')->group(function () {
-        Route::get('/users', [UserController::class, 'getAll']);
         Route::patch('/users/{id}', [UserController::class, 'update']);
         Route::delete('/users/{id}', [UserController::class, 'delete']);
     });
@@ -51,11 +73,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/posts/{postId}/comments/{id}', [CommentController::class, 'destroy']);
 
     // Follows
-    Route::post('/users/{userId}/follow', [FollowController::class, 'follow']);
-    Route::delete('/users/{userId}/follow', [FollowController::class, 'unfollow']);
-    Route::get('/users/{userId}/followers', [FollowController::class, 'getFollowers']);
-    Route::get('/users/{userId}/following', [FollowController::class, 'getFollowing']);
-    Route::get('/users/{userId}/is-following', [FollowController::class, 'isFollowing']);
+    Route::post('/follows/{userId}/follow', [FollowController::class, 'follow']);
+    Route::delete('/follows/{userId}/follow', [FollowController::class, 'unfollow']);
+    Route::get('/follows/{userId}/followers', [FollowController::class, 'getFollowers']);
+    Route::get('/follows/{userId}/following', [FollowController::class, 'getFollowing']);
+    Route::get('/follows/{userId}/is-following', [FollowController::class, 'isFollowing']);
 
     // Roles (admin only)
     Route::middleware('admin')->group(function () {

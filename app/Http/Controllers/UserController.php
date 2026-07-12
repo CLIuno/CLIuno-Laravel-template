@@ -88,16 +88,17 @@ class UserController extends Controller
         return response()->json(['message' => 'User deleted successfully']);
     }
 
-    public function getPostsByUserId(Request $request): JsonResponse
+    public function getPostsByUserId(int $id): JsonResponse
     {
-        $posts = $request->user()->posts()->with(['user', 'comments.user'])->latest()->get();
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->with(['user', 'comments.user'])->latest()->get();
 
         return response()->json(['data' => ['posts' => $posts]]);
     }
 
-    public function getRolesByUserId(Request $request): JsonResponse
+    public function getRolesByUserId(int $id): JsonResponse
     {
-        $role = $request->user()->role;
+        $role = User::findOrFail($id)->role;
 
         return response()->json(['data' => ['role' => $role]]);
     }

@@ -72,6 +72,6 @@ class FollowController extends Controller
             ->where('following_id', $userId)
             ->exists();
 
-        return response()->json(['data' => ['is_following' => $isFollowing]]);
+        return response()->json(['data' => ['isFollowing' => $isFollowing]]);
     }
 }
