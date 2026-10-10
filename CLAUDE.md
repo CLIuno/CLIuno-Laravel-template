@@ -39,3 +39,16 @@ composer lint                             # pint (also the pre-commit hook)
 
 Pint formatting; conventional commits (commitlint via husky, `pnpm install` once for the
 hook tooling); pest tests must stay green.
+
+## AI agents (Claude Code and friends)
+
+- **Check the CLIuno skills first**: `npx cliuno@latest skills status` — if any is
+  `missing`/`outdated`, run `npx cliuno@latest skills install` (adds `.claude/skills/cliuno-*`:
+  the generator workflow, the scaffold guide, and the shared REST contract).
+- **Generate resources, don't hand-write them**:
+  `npx cliuno@latest make:resource Product --fields name:string,price:number,inStock:boolean`
+  creates `app/Models/Product.php`, `database/migrations/<timestamp>_create_products_table.php`, `app/Http/Controllers/ProductController.php`, `tests/Feature/ProductTest.php` and registers it in `routes/api.php`, `app/Models/User.php`, following this
+  template's conventions and the `{status, message, data}` contract. `--dry-run` previews,
+  re-running never duplicates registrations, `--force` overwrites.
+- Single pieces: `make:model` (→ `php artisan make:model`), `make:controller` (→ `php artisan make:controller`), `make:migration` (→ `php artisan make:migration`), `make:request` (→ `php artisan make:request`), `make:test` (→ `php artisan make:test`). `npx cliuno@latest make` lists them.
+- Then edit fields/business logic only, and run the gates above.
